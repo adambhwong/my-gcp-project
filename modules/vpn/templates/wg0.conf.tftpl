@@ -1,0 +1,22 @@
+[Interface]
+Address = ${server_address}
+ListenPort = 51820
+PrivateKey = __SERVER_PRIVATE_KEY__
+
+# Allow incoming WireGuard UDP packets and tunnel forwarding on COS host
+PostUp = iptables -C INPUT -p udp --dport 51820 -j ACCEPT 2>/dev/null || iptables -I INPUT 1 -p udp --dport 51820 -j ACCEPT
+PostUp = iptables -A FORWARD -i %i -j ACCEPT
+PostUp = iptables -A FORWARD -o %i -j ACCEPT
+
+# Clean up rules cleanly when wg0 goes down
+PostDown = iptables -D INPUT -p udp --dport 51820 -j ACCEPT 2>/dev/null || true
+PostDown = iptables -D FORWARD -i %i -j ACCEPT 2>/dev/null || true
+PostDown = iptables -D FORWARD -o %i -j ACCEPT 2>/dev/null || true
+
+%{ for peer in peers ~}
+
+[Peer]
+# ${peer.name}
+PublicKey = __PEER_PUBLIC_KEY_${peer.name}__
+AllowedIPs = ${peer.tunnel_ip}, ${peer.cidr}
+%{ endfor ~}
