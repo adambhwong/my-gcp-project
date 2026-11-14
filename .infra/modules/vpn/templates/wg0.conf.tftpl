@@ -1,0 +1,13 @@
+[Interface]
+Address = ${server_address}
+ListenPort = 51820
+PrivateKey = __SERVER_PRIVATE_KEY__
+PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth+ -j MASQUERADE
+PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth+ -j MASQUERADE
+%{ for peer in peers ~}
+
+[Peer]
+# ${peer.name}
+PublicKey = __PEER_PUBLIC_KEY_${peer.name}__
+AllowedIPs = ${peer.tunnel_ip}, ${peer.cidr}
+%{ endfor ~}
