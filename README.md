@@ -24,6 +24,7 @@ The infrastructure is deployed primarily in `europe-west2` (London), using Terra
 ```mermaid
 flowchart TB
     Internet((Internet))
+    DS["DNSimple"]
     subgraph GCP["Google Cloud Platform - europe-west2"]
         DNS["Cloud DNS"]
         AR["Artifact Registry"]
@@ -35,19 +36,24 @@ flowchart TB
     end
 
     subgraph Remote["Remote Networks"]
-        UK["Home UK Network"]
-        HK["Home HK Network"]
-        UKHOST["Linux Hosts"]
+        subgraph UK["Home UK Network"]
+            UKHOST["beetle"]
+        end
+        subgraph HK["Home HK Network"]
+            HKHOST["panda"]
+        end
     end
 
+    Internet --> DS
+    DS --> DNS
     Internet --> DNS
     Internet --> VPN
+    Internet --> GRAF
     AR --> VPN
     VPN <-->|WireGuard Tunnel| UK
     VPN <-->|WireGuard Tunnel| HK
-    UK --> UKHOST
     PROM -->|Scrape metrics| UKHOST
-    PROM -->|Scrape metrics| HK
+    PROM -->|Scrape metrics| HKHOST
     GRAF --> PROM
 ```
 
