@@ -12,7 +12,7 @@ No requirements.
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="provider_google"></a> [google](#provider\_google) | n/a |
 | <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
@@ -23,7 +23,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-| ---- | ---- |
+|------|------|
 | [google_compute_backend_service.grafana_backend](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service) | resource |
 | [google_compute_disk.grafana_data_disk](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_disk) | resource |
 | [google_compute_firewall.allow_grafana](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
@@ -54,7 +54,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | :------: |
+|------|-------------|------|---------|:--------:|
 | <a name="input_dns_domain_name"></a> [dns\_domain\_name](#input\_dns\_domain\_name) | The fully qualified domain name for Grafana. | `string` | `"monitoring.gcp.2am.xyz."` | no |
 | <a name="input_dns_zone_name"></a> [dns\_zone\_name](#input\_dns\_zone\_name) | The name of the existing Cloud DNS managed zone. | `string` | `"gcp-2am-xyz"` | no |
 | <a name="input_machine_type"></a> [machine\_type](#input\_machine\_type) | GCE machine type for Grafana. | `string` | `"e2-small"` | no |
@@ -67,7 +67,7 @@ No modules.
 ## Outputs
 
 | Name | Description |
-| ---- | ----------- |
+|------|-------------|
 | <a name="output_grafana_url"></a> [grafana\_url](#output\_grafana\_url) | URL to access the Grafana server interface via DNS. |
 | <a name="output_load_balancer_ip"></a> [load\_balancer\_ip](#output\_load\_balancer\_ip) | The reserved static external IP address of the Load Balancer. |
 | <a name="output_secret_id"></a> [secret\_id](#output\_secret\_id) | The Secret Manager secret resource ID storing the Grafana admin password. |
