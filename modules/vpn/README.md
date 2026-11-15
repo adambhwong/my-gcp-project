@@ -8,15 +8,15 @@ Manages GCP VM based VPN gateway using wireguard
 ## Requirements
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="requirement_wireguard"></a> [wireguard](#requirement\_wireguard) | ~> 0.4 |
 
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
-| <a name="provider_google"></a> [google](#provider\_google) | 8.11.0 |
-| <a name="provider_wireguard"></a> [wireguard](#provider\_wireguard) | 0.4.1 |
+|------|---------|
+| <a name="provider_google"></a> [google](#provider\_google) | n/a |
+| <a name="provider_wireguard"></a> [wireguard](#provider\_wireguard) | ~> 0.4 |
 
 ## Modules
 
@@ -25,7 +25,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-| ---- | ---- |
+|------|------|
 | [google_compute_address.vpn_ip](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address) | resource |
 | [google_compute_disk.vpn_data](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_disk) | resource |
 | [google_compute_firewall.allow_iap_ssh](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
@@ -44,7 +44,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | :------: |
+|------|-------------|------|---------|:--------:|
 | <a name="input_dns_domain"></a> [dns\_domain](#input\_dns\_domain) | Cloud DNS domain name (with trailing dot, e.g., gcp.2am.xyz.) | `string` | n/a | yes |
 | <a name="input_dns_zone_name"></a> [dns\_zone\_name](#input\_dns\_zone\_name) | Cloud DNS public zone name for the VPN A record | `string` | n/a | yes |
 | <a name="input_machine_type"></a> [machine\_type](#input\_machine\_type) | Compute Engine machine type (e.g., e2-micro) | `string` | `"e2-micro"` | no |
@@ -60,7 +60,7 @@ No modules.
 ## Outputs
 
 | Name | Description |
-| ---- | ----------- |
+|------|-------------|
 | <a name="output_vpn_fqdn"></a> [vpn\_fqdn](#output\_vpn\_fqdn) | Public DNS hostname for the WireGuard endpoint |
 | <a name="output_vpn_private_ip"></a> [vpn\_private\_ip](#output\_vpn\_private\_ip) | Internal VPC IP of the WireGuard gateway |
 | <a name="output_vpn_public_ip"></a> [vpn\_public\_ip](#output\_vpn\_public\_ip) | Static external IP of the WireGuard gateway |

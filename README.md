@@ -323,19 +323,19 @@ Potential enhancements:
 ## Requirements
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="requirement_google"></a> [google](#requirement\_google) | ~> 6.0 |
 
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
-| <a name="provider_google"></a> [google](#provider\_google) | 6.50.0 |
+|------|---------|
+| <a name="provider_google"></a> [google](#provider\_google) | ~> 6.0 |
 
 ## Modules
 
 | Name | Source | Version |
-| ---- | ------ | ------- |
+|------|--------|---------|
 | <a name="module_artifact_registry"></a> [artifact\_registry](#module\_artifact\_registry) | ./modules/artifact_registry | n/a |
 | <a name="module_dns"></a> [dns](#module\_dns) | ./modules/dns | n/a |
 | <a name="module_github_wif"></a> [github\_wif](#module\_github\_wif) | ./modules/github-wif | n/a |
@@ -347,14 +347,14 @@ Potential enhancements:
 ## Resources
 
 | Name | Type |
-| ---- | ---- |
+|------|------|
 | [google_project_service.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) | resource |
 | [google_project.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/project) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | :------: |
+|------|-------------|------|---------|:--------:|
 | <a name="input_enable_services"></a> [enable\_services](#input\_enable\_services) | List services to enable | `list(string)` | <pre>[<br/>  "iap",<br/>  "networkmanagement",<br/>  "logging",<br/>  "monitoring",<br/>  "secretmanager",<br/>  "container",<br/>  "dns",<br/>  "artifactregistry",<br/>  "serviceusage"<br/>]</pre> | no |
 | <a name="input_github_repo"></a> [github\_repo](#input\_github\_repo) | Github repository (your-github-org/your-repo-name) | `string` | `"adambhwong/my-gcp-project"` | no |
 | <a name="input_grafana"></a> [grafana](#input\_grafana) | Grafana configurations | <pre>object({<br/>    host = string<br/>  })</pre> | <pre>{<br/>  "host": "monitoring"<br/>}</pre> | no |
@@ -368,7 +368,7 @@ Potential enhancements:
 ## Outputs
 
 | Name | Description |
-| ---- | ----------- |
+|------|-------------|
 | <a name="output_docker_repo_url"></a> [docker\_repo\_url](#output\_docker\_repo\_url) | n/a |
 | <a name="output_gcp_dns_name_servers"></a> [gcp\_dns\_name\_servers](#output\_gcp\_dns\_name\_servers) | n/a |
 | <a name="output_github_wif"></a> [github\_wif](#output\_github\_wif) | Pass the outputs directly into your GitHub Actions workflow configuration |
