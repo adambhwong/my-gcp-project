@@ -1,8 +1,3 @@
-resource "google_project_service" "dns" {
-  service            = "dns.googleapis.com"
-  disable_on_destroy = false
-}
-
 resource "google_dns_managed_zone" "gcp_subdomain" {
   name        = var.zone_name
   dns_name    = var.dns_name
@@ -17,7 +12,5 @@ resource "google_dns_managed_zone" "gcp_subdomain" {
       }
     }
   }
-
-  depends_on = [google_project_service.dns]
 }
 

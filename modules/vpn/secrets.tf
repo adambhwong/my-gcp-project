@@ -1,9 +1,3 @@
-# Enable Secret Manager API
-resource "google_project_service" "secretmanager" {
-  service            = "secretmanager.googleapis.com"
-  disable_on_destroy = false
-}
-
 # Generate WireGuard Key Pairs (Server + Peers)
 resource "wireguard_asymmetric_key" "server" {}
 
@@ -36,8 +30,6 @@ resource "google_secret_manager_secret" "wg_secrets" {
   replication {
     auto {}
   }
-
-  depends_on = [google_project_service.secretmanager]
 }
 
 resource "google_secret_manager_secret_version" "wg_secret_versions" {

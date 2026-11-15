@@ -1,9 +1,3 @@
-# Enable Cloud Logging API
-resource "google_project_service" "logging" {
-  service            = "logging.googleapis.com"
-  disable_on_destroy = false
-}
-
 # Dedicated Service Account for the VPN VM (Least Privilege)
 resource "google_service_account" "vpn_sa" {
   account_id   = "vpn-gateway-sa"

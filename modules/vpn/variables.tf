@@ -25,7 +25,6 @@ variable "subnet_id" {
 
 variable "wg_server_address" {
   type        = string
-  default     = "10.13.13.1/24"
   description = "WireGuard server tunnel interface IP/CIDR (e.g., 10.13.13.1/24)"
 }
 

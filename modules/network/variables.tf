@@ -8,7 +8,7 @@ variable "subnets" {
     name = string
     cidr = string
   }))
-  default = []
+  default     = []
   description = "List of VPC subnets to create"
 }
 
@@ -17,7 +17,7 @@ variable "wg_subnets" {
     name = string
     cidr = string
   }))
-  default = []
+  default     = []
   description = "List of remote WireGuard subnets allowed to communicate with the VPC"
 }
 
