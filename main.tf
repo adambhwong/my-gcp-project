@@ -141,13 +141,13 @@ module "prometheus_collector" {
 }
 
 module "grafana" {
-  source         = "./modules/grafana"
-  project_id     = data.google_project.default.project_id
-  region         = local.region
-  zone           = local.zone
-  network_name   = module.network.vpc_name
-  subnet_id      = values(module.network.subnet_ids)[0]
-  dns_zone_name  = module.dns.zone_name
+  source          = "./modules/grafana"
+  project_id      = data.google_project.default.project_id
+  region          = local.region
+  zone            = local.zone
+  network_name    = module.network.vpc_name
+  subnet_id       = values(module.network.subnet_ids)[0]
+  dns_zone_name   = module.dns.zone_name
   dns_domain_name = "${local.grafana.host}.${module.dns.dns_name}"
 
   depends_on = [

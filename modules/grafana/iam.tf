@@ -32,14 +32,14 @@ resource "google_secret_manager_secret_iam_member" "secret_accessor" {
   role      = "roles/secretmanager.secretAccessor"
   member    = "serviceAccount:${google_service_account.grafana_sa.email}"
 }
- 
+
 # Grant Serice Usage Viewer role
 resource "google_project_iam_member" "service_usage_viewer" {
   project = var.project_id
   role    = "roles/serviceusage.serviceUsageViewer"
   member  = "serviceAccount:${google_service_account.grafana_sa.email}"
 }
- 
+
 # Grant Browser role
 resource "google_project_iam_member" "browser" {
   project = var.project_id

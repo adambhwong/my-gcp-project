@@ -59,14 +59,14 @@ resource "google_compute_instance_template" "grafana_template" {
   }
 
   network_interface {
-    network = var.network_name
+    network    = var.network_name
     subnetwork = var.subnet_id
     access_config {
     }
   }
 
   service_account {
-    email  = google_service_account.grafana_sa.email
+    email = google_service_account.grafana_sa.email
     scopes = [
       "https://www.googleapis.com/auth/monitoring",
       "https://www.googleapis.com/auth/logging.write",

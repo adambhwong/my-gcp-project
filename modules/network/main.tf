@@ -38,7 +38,7 @@ resource "google_compute_firewall" "allow_internal_vpc" {
     protocol = "all"
   }
 
-  source_ranges = [ for s in var.subnets : s.cidr ]
+  source_ranges = [for s in var.subnets : s.cidr]
 }
 
 resource "google_compute_firewall" "allow_wireguard" {
