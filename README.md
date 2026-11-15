@@ -26,28 +26,27 @@ flowchart TB
     Internet((Internet))
     subgraph GCP["Google Cloud Platform - europe-west2"]
         DNS["Cloud DNS"]
-        AR["Artifact Registry"]
         subgraph VPC["VPC Network"]
-            VPN["WireGuard VPN Gateway<br/>Compute Engine / COS"]
-            PROM["Prometheus Collector"]
-            GRAF["Grafana"]
+            VPN["WireGuard VM"]
+            PROM["Prometheus Collector VM"]
+            GRAF["Grafana VM"]
         end
     end
 
-    subgraph Remote["Remote Networks"]
-        UK["Home UK Network"]
-        HK["Home HK Network"]
-        UKHOST["Linux Hosts"]
+    subgraph UK["Home UK Network"]
+        UKHOST["beetle"]
+    end
+    subgraph HK["Home HK Network"]
+        HKHOST["panda"]
     end
 
     Internet --> DNS
     Internet --> VPN
-    AR --> VPN
-    VPN <-->|WireGuard Tunnel| UK
-    VPN <-->|WireGuard Tunnel| HK
-    UK --> UKHOST
+    Internet --> GRAF
+    VPN <-->|WG Tunnel| UK
+    VPN <-->|WG Tunnel| HK
     PROM -->|Scrape metrics| UKHOST
-    PROM -->|Scrape metrics| HK
+    PROM -->|Scrape metrics| HKHOST
     GRAF --> PROM
 ```
 
@@ -280,23 +279,47 @@ The generated documentation includes:
 - Input variables
 - Output values
 
-### Configure terraform-docs
+## Development workflow
 
-Create `.terraform-docs.yml` in the repository root:
+Recommended workflow for infrastructure changes:
 
-```yaml
-formatter: markdown table
+1. Create a feature branch.
+2. Modify the relevant Terraform module or root configuration.
+3. Run `terraform fmt -recursive`.
+4. Run `terraform validate`.
+5. Generate updated Terraform documentation.
+6. Review the Terraform plan.
+7. Open a pull request for review.
+8. Apply the approved infrastructure changes.
 
-recursive:
-  enabled: true
-  path: modules
-  include-main: true
+Keep infrastructure code, module documentation and deployment configuration version-controlled.
 
-output:
-  file: README.md
-  mode: inject
-  template: |-
-    <!-- BEGIN_TF_DOCS -->
+## Security considerations
+
+- Do not commit service account JSON keys, credentials or secrets.
+- Store sensitive values in Google Secret Manager.
+- Use IAM least-privilege permissions.
+- Restrict VPN and management access to trusted networks.
+- Protect Terraform state in the GCS backend.
+- Review firewall rules and public IP exposure.
+- Avoid exposing sensitive Terraform outputs.
+
+## Future improvements
+
+Potential enhancements:
+
+- Automated Terraform validation and planning through GitHub Actions.
+- Terraform security scanning with Checkov or Trivy.
+- Automated documentation validation in pull requests.
+- Separate development and production environments.
+- Terraform state and infrastructure drift monitoring.
+- Additional GKE infrastructure modules.
+
+---
+
+**Infrastructure managed with Terraform on Google Cloud Platform.**
+
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -347,134 +370,3 @@ output:
 | <a name="output_docker_repo_url"></a> [docker\_repo\_url](#output\_docker\_repo\_url) | n/a |
 | <a name="output_gcp_dns_name_servers"></a> [gcp\_dns\_name\_servers](#output\_gcp\_dns\_name\_servers) | n/a |
 <!-- END_TF_DOCS -->
-
-sort:
-  enabled: true
-  by: name
-
-settings:
-  anchor: true
-  color: true
-  default: true
-  description: true
-  escape: true
-  hide-empty: false
-  required: true
-  sensitive: true
-  type: true
-```
-
-### Generate documentation locally
-
-Install terraform-docs and run:
-
-```bash
-terraform-docs .
-```
-
-To generate documentation for an individual module:
-
-```bash
-terraform-docs markdown table \
-  --output-file README.md \
-  --output-mode inject \
-  ./modules/network
-```
-
-Repeat for other modules when working on them individually.
-
-### Documentation markers
-
-Each README contains a generated documentation section bounded by:
-
-```markdown
-<!-- BEGIN_TF_DOCS -->
-<!-- END_TF_DOCS -->
-```
-
-Content outside these markers is maintained manually. Content inside these markers is managed by terraform-docs.
-
-When a module's variables, outputs or resources change, regenerate the documentation and commit the updated README.
-
-### GitHub Actions automation
-
-Create `.github/workflows/terraform-docs.yml` to generate and update Terraform documentation when a pull request changes Terraform files:
-
-```yaml
-name: Terraform Documentation
-
-on:
-  pull_request:
-    paths:
-      - '**/*.tf'
-      - '**/*.tfvars'
-      - '.terraform-docs.yml'
-      - 'README.md'
-      - 'modules/**'
-
-permissions:
-  contents: write
-
-jobs:
-  terraform-docs:
-    name: Generate Terraform Documentation
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-
-      - name: Generate Terraform documentation
-        uses: terraform-docs/gh-actions@v1.4.1
-        with:
-          working-dir: .
-          output-file: README.md
-          output-method: inject
-          recursive: true
-          git-push: "true"
-```
-
-**Forked pull requests:** GitHub does not normally grant write permissions to workflows triggered by forked pull requests. For those contributions, use a documentation validation workflow or generate the documentation in a trusted workflow after review.
-
-## Development workflow
-
-Recommended workflow for infrastructure changes:
-
-1. Create a feature branch.
-2. Modify the relevant Terraform module or root configuration.
-3. Run `terraform fmt -recursive`.
-4. Run `terraform validate`.
-5. Generate updated Terraform documentation.
-6. Review the Terraform plan.
-7. Open a pull request for review.
-8. Apply the approved infrastructure changes.
-
-Keep infrastructure code, module documentation and deployment configuration version-controlled.
-
-## Security considerations
-
-- Do not commit service account JSON keys, credentials or secrets.
-- Store sensitive values in Google Secret Manager.
-- Use IAM least-privilege permissions.
-- Restrict VPN and management access to trusted networks.
-- Protect Terraform state in the GCS backend.
-- Review firewall rules and public IP exposure.
-- Avoid exposing sensitive Terraform outputs.
-
-## Future improvements
-
-Potential enhancements:
-
-- Automated Terraform validation and planning through GitHub Actions.
-- Terraform security scanning with Checkov or Trivy.
-- Automated documentation validation in pull requests.
-- Separate development and production environments.
-- Terraform state and infrastructure drift monitoring.
-- Additional GKE infrastructure modules.
-
----
-
-**Infrastructure managed with Terraform on Google Cloud Platform.**
