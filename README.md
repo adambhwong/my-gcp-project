@@ -220,7 +220,7 @@ terraform validate
 ### 3. Review infrastructure changes
 
 ```bash
-terraform plan -out=tfplan
+terraform plan -var-file="default.tfvars" -out=tfplan
 ```
 
 ### 4. Apply infrastructure
