@@ -16,6 +16,24 @@ resource "google_container_cluster" "primary" {
     services_ipv4_cidr_block = var.services_ipv4_cidr_block
   }
 
+  # Disable the public control plane endpoint and assign a private /28 endpoint
+  private_cluster_config {
+    enable_private_nodes    = true
+    enable_private_endpoint = true
+    master_ipv4_cidr_block  = var.master_ipv4_cidr_block
+  }
+
+  # Allow subnets to reach the private control plane IP
+  master_authorized_networks_config {
+    dynamic "cidr_blocks" {
+      for_each = var.master_authorized_cidr_blocks
+      content {
+        cidr_block   = cidr_blocks.value.cidr_block
+        display_name = cidr_blocks.value.display_name
+      }
+    }
+  }
+
   # Enable Google Cloud Managed Service for Prometheus (GMP)
   monitoring_config {
     enable_components = ["SYSTEM_COMPONENTS"]
@@ -31,13 +49,6 @@ resource "google_container_cluster" "primary" {
   # Enable Workload Identity for pods
   workload_identity_config {
     workload_pool = "${var.project_id}.svc.id.goog"
-  }
-
-  master_authorized_networks_config {
-    cidr_blocks {
-      cidr_block   = var.master_authorized_cidr
-      display_name = "Allowed control plane access"
-    }
   }
 
   # Allow Terraform to destroy the cluster cleanly during homelab experiments
