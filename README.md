@@ -329,7 +329,16 @@ output:
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_enable_services"></a> [enable\_services](#input\_enable\_services) | List services to enable | `list(string)` | <pre>[<br/>  "iap",<br/>  "networkmanagement",<br/>  "logging",<br/>  "monitoring",<br/>  "secretmanager",<br/>  "container",<br/>  "dns",<br/>  "artifactregistry",<br/>  "serviceusage"<br/>]</pre> | no |
+| <a name="input_grafana"></a> [grafana](#input\_grafana) | Grafana configurations | <pre>object({<br/>    host = string<br/>  })</pre> | <pre>{<br/>  "host": "monitoring"<br/>}</pre> | no |
+| <a name="input_prometheus_scrape_targets"></a> [prometheus\_scrape\_targets](#input\_prometheus\_scrape\_targets) | Map of prometheus scape targets | <pre>map(object({<br/>    target   = string<br/>    instance = string<br/>    location = string<br/>  }))</pre> | `{}` | no |
+| <a name="input_region"></a> [region](#input\_region) | GCP region for VPC resources | `string` | `"europe-west2"` | no |
+| <a name="input_subnets"></a> [subnets](#input\_subnets) | List of subnets | <pre>list(object({<br/>    name = string<br/>    cidr = string<br/>  }))</pre> | <pre>[<br/>  {<br/>    "cidr": "10.10.1.0/24",<br/>    "name": "vm-subnet"<br/>  }<br/>]</pre> | no |
+| <a name="input_wg_peers"></a> [wg\_peers](#input\_wg\_peers) | List of wireguard peers | <pre>list(object({<br/>    name      = string<br/>    cidr      = string<br/>    tunnel_ip = string<br/>  }))</pre> | `[]` | no |
+| <a name="input_wg_server_address"></a> [wg\_server\_address](#input\_wg\_server\_address) | GCP VM wireguard server address | `string` | `"10.2.0.1/24"` | no |
+| <a name="input_zone"></a> [zone](#input\_zone) | GCP zone for VPC resources | `string` | `"europe-west2-a"` | no |
 
 ## Outputs
 
