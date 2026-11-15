@@ -46,7 +46,8 @@ resource "google_compute_instance_template" "vpn_template" {
 
   # Enables COS built-in Cloud Logging daemon for host/kernel logs
   metadata = {
-    google-logging-enabled = "true"
+    google-logging-enabled    = "true"
+    google-monitoring-enabled = "true"
   }
 
   metadata_startup_script = <<-EOF
