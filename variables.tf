@@ -75,3 +75,10 @@ variable "grafana" {
   }
   description = "Grafana configurations"
 }
+
+variable "github_repo" {
+  type        = string
+  default     = "adambhwong/my-gcp-project"
+  description = "Github repository (your-github-org/your-repo-name)"
+}
+
