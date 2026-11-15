@@ -24,34 +24,30 @@ The infrastructure is deployed primarily in `europe-west2` (London), using Terra
 ```mermaid
 flowchart TB
     Internet((Internet))
-    DS["DNSimple"]
     subgraph GCP["Google Cloud Platform - europe-west2"]
         DNS["Cloud DNS"]
         AR["Artifact Registry"]
         subgraph VPC["VPC Network"]
-            VPN["WireGuard VPN Gateway<br/>Compute Engine / COS"]
-            PROM["Prometheus Collector"]
-            GRAF["Grafana"]
+            VPN["WireGuard VM"]
+            PROM["Prometheus Collector VM"]
+            GRAF["Grafana VM"]
         end
     end
 
-    subgraph Remote["Remote Networks"]
-        subgraph UK["Home UK Network"]
-            UKHOST["beetle"]
-        end
-        subgraph HK["Home HK Network"]
-            HKHOST["panda"]
-        end
+    subgraph UK["Home UK Network"]
+        UKHOST["beetle"]
+    end
+    subgraph HK["Home HK Network"]
+        HKHOST["panda"]
     end
 
     Internet --> DS
-    DS --> DNS
     Internet --> DNS
     Internet --> VPN
     Internet --> GRAF
     AR --> VPN
-    VPN <-->|WireGuard Tunnel| UK
-    VPN <-->|WireGuard Tunnel| HK
+    VPN <-->|WG Tunnel| UK
+    VPN <-->|WG Tunnel| HK
     PROM -->|Scrape metrics| UKHOST
     PROM -->|Scrape metrics| HKHOST
     GRAF --> PROM
