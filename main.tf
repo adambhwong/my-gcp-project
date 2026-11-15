@@ -98,9 +98,9 @@ module "grafana" {
 }
 
 module "github_wif" {
-  source             = "./modules/github-wif" # Adjust path to your module location
-  project_id         = data.google_project.default.project_id
-  github_repository  = var.github_repo
+  source            = "./modules/github-wif" # Adjust path to your module location
+  project_id        = data.google_project.default.project_id
+  github_repository = var.github_repo
 
   depends_on = [
     google_project_service.default,

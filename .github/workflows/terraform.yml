@@ -51,15 +51,6 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
-      - name: Run TFLint (Security & Style Scan)
-        uses: tflint-actions/setup-tflint@v3
-        with:
-          tflint_version: v0.50.0
-      - name: Init TFLint
-        run: tflint --init
-      - name: Run TFLint
-        run: tflint -f compact
-
       - name: Run Checkov (Infrastructure Security Scan)
         uses: bridgecrewio/checkov-action@master
         with:

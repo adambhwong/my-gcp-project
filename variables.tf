@@ -52,7 +52,7 @@ variable "wg_peers" {
     cidr      = string
     tunnel_ip = string
   }))
-  default = []
+  default     = []
   description = "List of wireguard peers"
 }
 
@@ -62,7 +62,7 @@ variable "prometheus_scrape_targets" {
     instance = string
     location = string
   }))
-  default = {}
+  default     = {}
   description = "Map of prometheus scape targets"
 }
 
