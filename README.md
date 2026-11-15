@@ -319,3 +319,55 @@ Potential enhancements:
 ---
 
 **Infrastructure managed with Terraform on Google Cloud Platform.**
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_google"></a> [google](#requirement\_google) | ~> 6.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_google"></a> [google](#provider\_google) | ~> 6.0 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_artifact_registry"></a> [artifact\_registry](#module\_artifact\_registry) | ./modules/artifact_registry | n/a |
+| <a name="module_dns"></a> [dns](#module\_dns) | ./modules/dns | n/a |
+| <a name="module_grafana"></a> [grafana](#module\_grafana) | ./modules/grafana | n/a |
+| <a name="module_network"></a> [network](#module\_network) | ./modules/network | n/a |
+| <a name="module_prometheus_collector"></a> [prometheus\_collector](#module\_prometheus\_collector) | ./modules/prometheus-collector | n/a |
+| <a name="module_vpn"></a> [vpn](#module\_vpn) | ./modules/vpn | n/a |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [google_project_service.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) | resource |
+| [google_project.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/project) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_enable_services"></a> [enable\_services](#input\_enable\_services) | List services to enable | `list(string)` | <pre>[<br/>  "iap",<br/>  "networkmanagement",<br/>  "logging",<br/>  "monitoring",<br/>  "secretmanager",<br/>  "container",<br/>  "dns",<br/>  "artifactregistry",<br/>  "serviceusage"<br/>]</pre> | no |
+| <a name="input_grafana"></a> [grafana](#input\_grafana) | Grafana configurations | <pre>object({<br/>    host = string<br/>  })</pre> | <pre>{<br/>  "host": "monitoring"<br/>}</pre> | no |
+| <a name="input_prometheus_scrape_targets"></a> [prometheus\_scrape\_targets](#input\_prometheus\_scrape\_targets) | Map of prometheus scape targets | <pre>map(object({<br/>    target   = string<br/>    instance = string<br/>    location = string<br/>  }))</pre> | `{}` | no |
+| <a name="input_region"></a> [region](#input\_region) | GCP region for VPC resources | `string` | `"europe-west2"` | no |
+| <a name="input_subnets"></a> [subnets](#input\_subnets) | List of subnets | <pre>list(object({<br/>    name = string<br/>    cidr = string<br/>  }))</pre> | <pre>[<br/>  {<br/>    "cidr": "10.10.1.0/24",<br/>    "name": "vm-subnet"<br/>  }<br/>]</pre> | no |
+| <a name="input_wg_peers"></a> [wg\_peers](#input\_wg\_peers) | List of wireguard peers | <pre>list(object({<br/>    name      = string<br/>    cidr      = string<br/>    tunnel_ip = string<br/>  }))</pre> | `[]` | no |
+| <a name="input_wg_server_address"></a> [wg\_server\_address](#input\_wg\_server\_address) | GCP VM wireguard server address | `string` | `"10.2.0.1/24"` | no |
+| <a name="input_zone"></a> [zone](#input\_zone) | GCP zone for VPC resources | `string` | `"europe-west2-a"` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_docker_repo_url"></a> [docker\_repo\_url](#output\_docker\_repo\_url) | n/a |
+| <a name="output_gcp_dns_name_servers"></a> [gcp\_dns\_name\_servers](#output\_gcp\_dns\_name\_servers) | n/a |
+<!-- END_TF_DOCS -->
