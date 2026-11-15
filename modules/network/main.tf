@@ -1,9 +1,3 @@
-# Enable Secret Manager API
-resource "google_project_service" "secretmanager" {
-  service            = "networkmanagement.googleapis.com"
-  disable_on_destroy = false
-}
-
 resource "google_compute_network" "main_vpc" {
   name                    = "main-vpc"
   auto_create_subnetworks = false

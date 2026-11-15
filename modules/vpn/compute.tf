@@ -16,6 +16,7 @@ locals {
   wg_conf_template = templatefile("${path.module}/templates/wg0.conf.tftpl", {
     server_address = var.wg_server_address
     peers          = var.wg_peers
+    subnet         = var.vpc_subnet_cidrs[0]
   })
 }
 
@@ -90,10 +91,10 @@ WGCONF
     SERVER_PRIV_KEY=$(get_secret "wg-server-private-key")
     sed -i "s|__SERVER_PRIVATE_KEY__|$SERVER_PRIV_KEY|g" "$WG_CONF"
 
-    %{ for peer in var.wg_peers ~}
+    %{for peer in var.wg_peers~}
     PEER_KEY=$(get_secret "wg-peer-${peer.name}-public-key")
     sed -i "s|__PEER_PUBLIC_KEY_${peer.name}__|$PEER_KEY|g" "$WG_CONF"
-    %{ endfor ~}
+    %{endfor~}
 
     chmod 600 "$WG_CONF"
 
