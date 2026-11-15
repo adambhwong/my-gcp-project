@@ -1,0 +1,36 @@
+
+name: Terraform Documentation
+
+on:
+  pull_request:
+    paths:
+      - '**/*.tf'
+      - '**/*.tfvars'
+      - '.terraform-docs.yml'
+      - 'README.md'
+      - 'modules/**'
+
+permissions:
+  contents: write
+
+jobs:
+  terraform-docs:
+    name: Generate Terraform Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+
+      - name: Generate Terraform documentation
+        uses: terraform-docs/gh-actions@v1.4.1
+        with:
+          working-dir: .
+          output-file: README.md
+          output-method: inject
+          recursive: true
+          git-push: "true"
+
