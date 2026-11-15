@@ -15,10 +15,10 @@ variable "provider_id" {
   default     = "github-provider"
 }
 
-variable "service_account_id" {
+variable "service_account" {
   type        = string
-  description = "The account ID for the GitHub Actions service account."
-  default     = "github-actions-sa"
+  default     = "terraform-admin"
+  description = "The service account used for the GitHub Actions."
 }
 
 variable "github_repository" {

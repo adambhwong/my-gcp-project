@@ -1,8 +1,5 @@
-# Create a GCP Service Account
-resource "google_service_account" "github_sa" {
-  account_id   = var.service_account_id
-  display_name = "GitHub Actions Service Account"
-  project      = var.project_id
+data "google_service_account" "github_sa" {
+  account_id = var.service_account
 }
 
 # Create Workload Identity Pool
@@ -36,7 +33,7 @@ resource "google_iam_workload_identity_pool_provider" "provider" {
 
 # Allow GitHub to Impersonate the Service Account
 resource "google_service_account_iam_member" "workload_identity_user" {
-  service_account_id = google_service_account.github_sa.name
+  service_account_id = data.google_service_account.github_sa.name
   role               = "roles/iam.workloadIdentityUser"
   member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.pool.name}/attribute.repository/${var.github_repository}"
 }

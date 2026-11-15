@@ -6,5 +6,5 @@ output "workload_identity_provider" {
 
 output "service_account_email" {
   description = "The email address of the created GCP service account."
-  value       = google_service_account.github_sa.email
+  value       = data.google_service_account.github_sa.email
 }
