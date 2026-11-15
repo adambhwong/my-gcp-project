@@ -30,15 +30,28 @@ locals {
       cidr      = "192.168.15.0/24"
     },
   ]
-#  gke_cluster = {
-#    name                     = "testlab"
-#    master_ipv4_cidr_block   = "10.10.255.0/28"
-#    pods_ipv4_cidr_block     = "10.20.0.0/16"
-#    services_ipv4_cidr_block = "10.21.0.0/20"
-#    node_machine_type        = "e2-medium"
-#    node_count               = 1
-#    use_spot_nodes           = true
-#  }
+  prometheus_scrape_targets = {
+    beetle = {
+      target   = "192.168.15.175:9100"
+      instance = "beetle"
+      location = "home-uk"
+    }
+    panda = {
+      target   = "192.168.1.2:9100"
+      instance = "panda"
+      location = "home-hk"
+    }
+  }
+
+  #  gke_cluster = {
+  #    name                     = "testlab"
+  #    master_ipv4_cidr_block   = "10.10.255.0/28"
+  #    pods_ipv4_cidr_block     = "10.20.0.0/16"
+  #    services_ipv4_cidr_block = "10.21.0.0/20"
+  #    node_machine_type        = "e2-medium"
+  #    node_count               = 1
+  #    use_spot_nodes           = true
+  #  }
 }
 
 # Enable services
@@ -104,6 +117,22 @@ module "vpn" {
     google_project_service.default,
     module.network,
     module.dns
+  ]
+}
+
+module "prometheus_collector" {
+  source         = "./modules/prometheus-collector"
+  count          = local.prometheus_scrape_targets == {} ? 0 : 1
+  project_id     = data.google_project.default.project_id
+  zone           = local.zone
+  network_name   = module.network.vpc_name
+  subnet_id      = values(module.network.subnet_ids)[0]
+  scrape_targets = local.prometheus_scrape_targets
+
+  depends_on = [
+    google_project_service.default,
+    module.network,
+    module.vpn
   ]
 }
 

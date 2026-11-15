@@ -29,6 +29,18 @@ resource "google_compute_router_nat" "nat_gateway" {
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
 
+resource "google_compute_firewall" "allow_internal_vpc" {
+  name     = "allow-internal-main-vpc"
+  network  = google_compute_network.main_vpc.id
+  priority = 1000
+
+  allow {
+    protocol = "all"
+  }
+
+  source_ranges = [ for s in var.subnets : s.cidr ]
+}
+
 resource "google_compute_firewall" "allow_wireguard" {
   name    = "allow-wireguard-udp"
   network = google_compute_network.main_vpc.id
