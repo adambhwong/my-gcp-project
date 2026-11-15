@@ -1,4 +1,4 @@
-# Network Module
+# VPN Gateway Module
 
 Manages GCP VM based VPN gateway using wireguard
 

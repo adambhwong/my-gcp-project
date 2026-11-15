@@ -1,4 +1,4 @@
-# Network Module
+# DNS Module
 
 Manages GCP Cloud DNS zone
 

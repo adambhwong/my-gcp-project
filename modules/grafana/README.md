@@ -1,4 +1,4 @@
-# Network Module
+# Grafana Module
 
 Manages GCP VM based Grafana service to serve dashboard for Cloud Metrics
 

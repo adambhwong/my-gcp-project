@@ -1,4 +1,4 @@
-# Network Module
+# Artifact Registry Module
 
 Manages GCP Artifact Registry
 

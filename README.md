@@ -338,6 +338,7 @@ Potential enhancements:
 |------|--------|---------|
 | <a name="module_artifact_registry"></a> [artifact\_registry](#module\_artifact\_registry) | ./modules/artifact_registry | n/a |
 | <a name="module_dns"></a> [dns](#module\_dns) | ./modules/dns | n/a |
+| <a name="module_github_wif"></a> [github\_wif](#module\_github\_wif) | ./modules/github-wif | n/a |
 | <a name="module_grafana"></a> [grafana](#module\_grafana) | ./modules/grafana | n/a |
 | <a name="module_network"></a> [network](#module\_network) | ./modules/network | n/a |
 | <a name="module_prometheus_collector"></a> [prometheus\_collector](#module\_prometheus\_collector) | ./modules/prometheus-collector | n/a |
@@ -355,6 +356,7 @@ Potential enhancements:
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_enable_services"></a> [enable\_services](#input\_enable\_services) | List services to enable | `list(string)` | <pre>[<br/>  "iap",<br/>  "networkmanagement",<br/>  "logging",<br/>  "monitoring",<br/>  "secretmanager",<br/>  "container",<br/>  "dns",<br/>  "artifactregistry",<br/>  "serviceusage"<br/>]</pre> | no |
+| <a name="input_github_repo"></a> [github\_repo](#input\_github\_repo) | Github repository (your-github-org/your-repo-name) | `string` | `"adambhwong/my-gcp-project"` | no |
 | <a name="input_grafana"></a> [grafana](#input\_grafana) | Grafana configurations | <pre>object({<br/>    host = string<br/>  })</pre> | <pre>{<br/>  "host": "monitoring"<br/>}</pre> | no |
 | <a name="input_prometheus_scrape_targets"></a> [prometheus\_scrape\_targets](#input\_prometheus\_scrape\_targets) | Map of prometheus scape targets | <pre>map(object({<br/>    target   = string<br/>    instance = string<br/>    location = string<br/>  }))</pre> | `{}` | no |
 | <a name="input_region"></a> [region](#input\_region) | GCP region for VPC resources | `string` | `"europe-west2"` | no |
@@ -369,4 +371,5 @@ Potential enhancements:
 |------|-------------|
 | <a name="output_docker_repo_url"></a> [docker\_repo\_url](#output\_docker\_repo\_url) | n/a |
 | <a name="output_gcp_dns_name_servers"></a> [gcp\_dns\_name\_servers](#output\_gcp\_dns\_name\_servers) | n/a |
+| <a name="output_github_wif"></a> [github\_wif](#output\_github\_wif) | Pass the outputs directly into your GitHub Actions workflow configuration |
 <!-- END_TF_DOCS -->

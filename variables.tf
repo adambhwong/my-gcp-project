@@ -52,7 +52,7 @@ variable "wg_peers" {
     cidr      = string
     tunnel_ip = string
   }))
-  default = []
+  default     = []
   description = "List of wireguard peers"
 }
 
@@ -62,7 +62,7 @@ variable "prometheus_scrape_targets" {
     instance = string
     location = string
   }))
-  default = {}
+  default     = {}
   description = "Map of prometheus scape targets"
 }
 
@@ -75,3 +75,10 @@ variable "grafana" {
   }
   description = "Grafana configurations"
 }
+
+variable "github_repo" {
+  type        = string
+  default     = "adambhwong/my-gcp-project"
+  description = "Github repository (your-github-org/your-repo-name)"
+}
+

@@ -1,4 +1,4 @@
-# Network Module
+# Prometheus Collector Module
 
 Manages GCP VM based prometheus-collector to pull metrics into Cloud Metrics
 
