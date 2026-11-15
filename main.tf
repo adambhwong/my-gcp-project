@@ -9,7 +9,8 @@ locals {
     "secretmanager",
     "container",
     "dns",
-    "artifactregistry"
+    "artifactregistry",
+    "serviceusage"
   ]
   subnets = [
     {
@@ -41,6 +42,9 @@ locals {
       instance = "panda"
       location = "home-hk"
     }
+  }
+  grafana = {
+    host = "monitoring"
   }
 
   #  gke_cluster = {
@@ -133,6 +137,23 @@ module "prometheus_collector" {
     google_project_service.default,
     module.network,
     module.vpn
+  ]
+}
+
+module "grafana" {
+  source          = "./modules/grafana"
+  project_id      = data.google_project.default.project_id
+  region          = local.region
+  zone            = local.zone
+  network_name    = module.network.vpc_name
+  subnet_id       = values(module.network.subnet_ids)[0]
+  dns_zone_name   = module.dns.zone_name
+  dns_domain_name = "${local.grafana.host}.${module.dns.dns_name}"
+
+  depends_on = [
+    google_project_service.default,
+    module.network,
+    module.dns
   ]
 }
 

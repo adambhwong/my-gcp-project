@@ -1,7 +1,7 @@
 locals {
   prometheus_config = templatefile("${path.module}/templates/prometheus.yml.tftpl", {
     scrape_targets = var.scrape_targets
-  })  
+  })
 }
 
 resource "google_compute_instance" "collector" {
