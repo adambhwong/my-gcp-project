@@ -26,7 +26,6 @@ flowchart TB
     Internet((Internet))
     subgraph GCP["Google Cloud Platform - europe-west2"]
         DNS["Cloud DNS"]
-        AR["Artifact Registry"]
         subgraph VPC["VPC Network"]
             VPN["WireGuard VM"]
             PROM["Prometheus Collector VM"]
@@ -44,7 +43,6 @@ flowchart TB
     Internet --> DNS
     Internet --> VPN
     Internet --> GRAF
-    AR --> VPN
     VPN <-->|WG Tunnel| UK
     VPN <-->|WG Tunnel| HK
     PROM -->|Scrape metrics| UKHOST
