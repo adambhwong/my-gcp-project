@@ -41,7 +41,6 @@ flowchart TB
         HKHOST["panda"]
     end
 
-    Internet --> DS
     Internet --> DNS
     Internet --> VPN
     Internet --> GRAF
