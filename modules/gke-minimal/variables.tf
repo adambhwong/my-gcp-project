@@ -24,6 +24,12 @@ variable "subnet_id" {
   type        = string
 }
 
+variable "master_ipv4_cidr_block" {
+  description = "Master CIDR block (must be a /28 CIDR not overlapping with 10.10.1.0/24 or 10.20.0.0/16)"
+  type        = string
+  default     = "10.10.255.0/28"
+}
+
 variable "pods_ipv4_cidr_block" {
   description = "Secondary CIDR block for GKE Pods (must not overlap with 10.10.0.0/16 or 10.2.0.0/24)"
   type        = string
@@ -54,9 +60,14 @@ variable "use_spot_nodes" {
   default     = false
 }
 
-variable "master_authorized_cidr" {
-  description = "CIDR allowed to access the GKE control plane endpoint (restrict to your home IP or VPN CIDR)"
-  type        = string
-  default     = "0.0.0.0/0"
+variable "master_authorized_cidr_blocks" {
+  description = "CIDR blocks allowed to access the GKE control plane endpoint"
+  type = list(object({
+    cidr_block   = string
+    display_name = string
+  }))
+  default = [{
+    cidr_block   = "0.0.0.0/0"
+    display_name = "Any"
+  }]
 }
-

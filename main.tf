@@ -30,14 +30,15 @@ locals {
       cidr      = "192.168.15.0/24"
     },
   ]
-  gke_cluster = {
-    name                     = "testlab"
-    pods_ipv4_cidr_block     = "10.20.0.0/16"
-    services_ipv4_cidr_block = "10.21.0.0/20"
-    node_machine_type        = "e2-medium"
-    node_count               = 1
-    use_spot_nodes           = true
-  }
+#  gke_cluster = {
+#    name                     = "testlab"
+#    master_ipv4_cidr_block   = "10.10.255.0/28"
+#    pods_ipv4_cidr_block     = "10.20.0.0/16"
+#    services_ipv4_cidr_block = "10.21.0.0/20"
+#    node_machine_type        = "e2-medium"
+#    node_count               = 1
+#    use_spot_nodes           = true
+#  }
 }
 
 # Enable services
@@ -106,22 +107,43 @@ module "vpn" {
   ]
 }
 
-module "gke_cluster" {
-  source                   = "./modules/gke-minimal"
-  project_id               = data.google_project.default.project_id
-  cluster_name             = local.gke_cluster.name
-  zone                     = local.zone
-  network_name             = module.network.vpc_name
-  subnet_id                = values(module.network.subnet_ids)[0]
-  pods_ipv4_cidr_block     = local.gke_cluster.pods_ipv4_cidr_block
-  services_ipv4_cidr_block = local.gke_cluster.services_ipv4_cidr_block
-  node_machine_type        = local.gke_cluster.node_machine_type
-  node_count               = local.gke_cluster.node_count
-  use_spot_nodes           = local.gke_cluster.use_spot_nodes
-
-  depends_on = [
-    google_project_service.default,
-    module.network
-  ]
-}
+#locals {
+#  wg_authorized_cidrs = concat(
+#    flatten([
+#      for peer in local.wg_peers : [
+#        {
+#          cidr_block   = peer.cidr
+#          display_name = peer.name
+#        }
+#      ]
+#      ]), flatten([
+#      for subnet in local.subnets : [
+#        {
+#          cidr_block   = subnet.cidr
+#          display_name = subnet.name
+#        }
+#      ]
+#    ])
+#  )
+#}
+#
+#module "gke_cluster" {
+#  source                        = "./modules/gke-minimal"
+#  project_id                    = data.google_project.default.project_id
+#  cluster_name                  = local.gke_cluster.name
+#  zone                          = local.zone
+#  network_name                  = module.network.vpc_name
+#  subnet_id                     = values(module.network.subnet_ids)[0]
+#  pods_ipv4_cidr_block          = local.gke_cluster.pods_ipv4_cidr_block
+#  services_ipv4_cidr_block      = local.gke_cluster.services_ipv4_cidr_block
+#  node_machine_type             = local.gke_cluster.node_machine_type
+#  node_count                    = local.gke_cluster.node_count
+#  use_spot_nodes                = local.gke_cluster.use_spot_nodes
+#  master_authorized_cidr_blocks = local.wg_authorized_cidrs
+#
+#  depends_on = [
+#    google_project_service.default,
+#    module.network
+#  ]
+#}
 
