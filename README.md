@@ -107,6 +107,7 @@ This project published below services the Internet:
 │   ├── artifact_registry/
 │   ├── dns/
 │   ├── vpn/
+│   ├── github-wif/
 │   ├── prometheus-collector/
 │   └── grafana/
 ├── .gitignore
@@ -255,6 +256,7 @@ Current root outputs include:
 
 - `docker_repo_url` – Artifact Registry Docker repository URL.
 - `gcp_dns_name_servers` – Cloud DNS name servers.
+- `github_wif` - Github WIF required information.
 
 ### 6. Destroy infrastructure
 
@@ -277,6 +279,7 @@ The root configuration uses independent modules to provision different infrastru
 | DNS | `./modules/dns` | Public Cloud DNS zone |
 | VPN | `./modules/vpn` | WireGuard gateway and VPN infrastructure |
 | Prometheus Collector | `./modules/prometheus-collector` | Prometheus metrics collection |
+| Github WIF | `./modules/github-wif` | Github Actions Workload Identity Federation |
 | Grafana | `./modules/grafana` | Grafana monitoring platform |
 
 Each module has its own README containing automatically generated Terraform documentation.
@@ -295,21 +298,6 @@ The generated documentation includes:
 - Child modules
 - Input variables
 - Output values
-
-## Development workflow
-
-Recommended workflow for infrastructure changes:
-
-1. Create a feature branch.
-2. Modify the relevant Terraform module or root configuration.
-3. Run `terraform fmt -recursive`.
-4. Run `terraform validate`.
-5. Generate updated Terraform documentation.
-6. Review the Terraform plan.
-7. Open a pull request for review.
-8. Apply the approved infrastructure changes.
-
-Keep infrastructure code, module documentation and deployment configuration version-controlled.
 
 ## Github Actions automation
 
