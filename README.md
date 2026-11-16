@@ -83,6 +83,17 @@ Current scrape targets:
 
 Grafana provides dashboards and visualisation using Prometheus and Google Cloud Monitoring as data sources.
 
+### DNS zone & Internet services
+
+The DNS zone (gcp.2am.xyz) is delegated by DNSimple NS records under 2am.xyz domain.
+
+This project published below services the Internet:
+
+| Service | Endpoint | Description |
+|---|---|---|
+| VPN | `vpn.gcp.2am.xyz:51820` | Wireguard VPN endpoint |
+| Grafana | https://monitoring.gcp.2am.xyz | Grafana dashboard |
+
 ## Repository structure
 
 ```text

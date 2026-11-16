@@ -1,6 +1,7 @@
 # Network Module
 
 Manages GCP VPC networking, subnets and related network configuration.
+- include firewall rules for wg-peers subnets access
 
 ## Terraform Documentation
 
