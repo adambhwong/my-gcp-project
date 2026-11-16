@@ -1,6 +1,8 @@
 # Prometheus Collector Module
 
 Manages GCP VM based prometheus-collector to pull metrics into Cloud Metrics
+- scrape metrics from given targets by generating the prometheus config at VM startup
+- connect to scrape targets in home networks through the VPN gateway
 
 ## Terraform Documentation
 

@@ -1,6 +1,8 @@
 # Github WIF Module
 
 Manages GCP-Github Workload Identity Federation
+- no plain text credentials required
+- the authenticated runner will impersonate as terraform-admin for plan/apply actions
 
 ## Terraform Documentation
 

@@ -1,6 +1,10 @@
 # Grafana Module
 
 Manages GCP VM based Grafana service to serve dashboard for Cloud Metrics
+- genereate admin password and store in secret
+- grant metrics access through VM service account
+- VM deploy as MIG and connected to the external application LB
+- external LB configured with SSL cert and terminate HTTPS connections
 
 ## Terraform Documentation
 
