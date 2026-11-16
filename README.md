@@ -35,6 +35,7 @@ flowchart TB
 
     subgraph UK["Home UK Network"]
         UKHOST["beetle"]
+        UKHOST2["tiger"]
     end
     subgraph HK["Home HK Network"]
         HKHOST["panda"]
@@ -46,6 +47,7 @@ flowchart TB
     VPN <-->|WG Tunnel| UK
     VPN <-->|WG Tunnel| HK
     PROM -->|Scrape metrics| UKHOST
+    PROM -->|Scrape metrics| UKHOST2
     PROM -->|Scrape metrics| HKHOST
     GRAF --> PROM
 ```
@@ -294,6 +296,17 @@ Recommended workflow for infrastructure changes:
 
 Keep infrastructure code, module documentation and deployment configuration version-controlled.
 
+## Github Actions automation
+
+- terraform-docs (automate the terraform document update)  
+
+- terraform (automate terraform plan & apply)  
+  1. Gitleaks scan  
+  2. Terraform fourmat check & validate  
+  3. Checkov scan  
+  4. Terraform plan  
+  5. Terraform apply (required approval)  
+
 ## Security considerations
 
 - Do not commit service account JSON keys, credentials or secrets.
@@ -308,9 +321,6 @@ Keep infrastructure code, module documentation and deployment configuration vers
 
 Potential enhancements:
 
-- Automated Terraform validation and planning through GitHub Actions.
-- Terraform security scanning with Checkov or Trivy.
-- Automated documentation validation in pull requests.
 - Separate development and production environments.
 - Terraform state and infrastructure drift monitoring.
 - Additional GKE infrastructure modules.
