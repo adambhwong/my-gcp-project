@@ -2,7 +2,7 @@
 
 Manages GCP VM based VPN gateway using wireguard
 - generate wireguard key pairs and store in secrets
-- configuration template use __KEY__ for replacement in startup
+- configuration template use `__KEY__` for replacement in startup
 - routes added for routing peer networks through the VM
 - VM interal firewall rules to allow packet forward
 
