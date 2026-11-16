@@ -18,6 +18,7 @@ The infrastructure is deployed primarily in `europe-west2` (London), using Terra
 | Artifact Registry | Docker image repository | `artifact_registry` |
 | Prometheus Collector | Centralised Prometheus collection for remote Linux hosts | `prometheus-collector` |
 | Grafana | Monitoring and visualisation platform | `grafana` |
+| Github WIF | Github Actions Workload Identity Federation for terraform pipeline | `github-wif` |
 
 ### High-level architecture
 
@@ -65,8 +66,8 @@ WireGuard peer configuration:
 
 | Peer | Tunnel address | Remote network |
 |---|---|---|
-| `home-hk` | `10.2.0.2/32` | `192.168.1.0/24` |
-| `home-uk` | `10.2.0.3/32` | `192.168.15.0/24` |
+| `home-hk (beetle)` | `10.2.0.2/32` | `192.168.1.0/24` |
+| `home-uk (panda)` | `10.2.0.3/32` | `192.168.15.0/24` |
 
 ### Monitoring
 
@@ -77,6 +78,7 @@ Current scrape targets:
 | Instance | Endpoint | Location |
 |---|---|---|
 | beetle | `192.168.15.175:9100` | Home UK |
+| tiger | `192.168.15.244:9100` | Home UK |
 | panda | `192.168.1.2:9100` | Home HK |
 
 Grafana provides dashboards and visualisation using Prometheus and Google Cloud Monitoring as data sources.
