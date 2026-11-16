@@ -35,6 +35,7 @@ flowchart TB
 
     subgraph UK["Home UK Network"]
         UKHOST["beetle"]
+        UKHOST2["tiger"]
     end
     subgraph HK["Home HK Network"]
         HKHOST["panda"]
@@ -46,6 +47,7 @@ flowchart TB
     VPN <-->|WG Tunnel| UK
     VPN <-->|WG Tunnel| HK
     PROM -->|Scrape metrics| UKHOST
+    PROM -->|Scrape metrics| UKHOST2
     PROM -->|Scrape metrics| HKHOST
     GRAF --> PROM
 ```
