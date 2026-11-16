@@ -148,6 +148,8 @@ The Terraform configuration enables the following Google Cloud APIs:
 - Cloud DNS
 - Artifact Registry
 - Service Usage
+- IAM Credentials
+- Security Token Service
 
 The Compute Engine API may also be required by the infrastructure modules and should be enabled where necessary.
 
