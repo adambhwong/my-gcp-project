@@ -27,6 +27,7 @@ flowchart TB
     Internet((Internet))
     subgraph GCP["Google Cloud Platform - europe-west2"]
         DNS["Cloud DNS"]
+        MET["Cloud Metrics"]
         subgraph VPC["VPC Network"]
             VPN["WireGuard VM"]
             PROM["Prometheus Collector VM"]
@@ -50,7 +51,8 @@ flowchart TB
     PROM -->|Scrape metrics| UKHOST
     PROM -->|Scrape metrics| UKHOST2
     PROM -->|Scrape metrics| HKHOST
-    GRAF --> PROM
+    GRAF --> MET
+    PROM --> MET
 ```
 
 ### Network configuration
