@@ -102,7 +102,8 @@ This project published below services the Internet:
 .
 ├── .github/
 │   └── workflows/
-│       └── terraform-docs.yml
+│       ├── terraform-docs.yml
+│       └── terraform.yml
 ├── .infra/
 ├── modules/
 │   ├── network/
