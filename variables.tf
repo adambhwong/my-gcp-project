@@ -82,3 +82,23 @@ variable "github_repo" {
   description = "Github repository (your-github-org/your-repo-name)"
 }
 
+variable "gke_clusters" {
+  type = list(object({
+    name                     = string
+    master_ipv4_cidr_block   = string
+    pods_ipv4_cidr_block     = string
+    services_ipv4_cidr_block = string
+    zone                     = optional(string, "")
+    network_name             = optional(string, "")
+    subnet_id                = optional(string, "")
+    node_machine_type        = optional(string, "e2-medium")
+    node_count               = optional(number, 1)
+    use_spot_nodes           = optional(bool, true)
+    master_authorized_cidr_blocks = list(object({
+      cidr_block   = string
+      display_name = string
+    }))
+  }))
+  default     = []
+  description = "GKE clusters"
+}
