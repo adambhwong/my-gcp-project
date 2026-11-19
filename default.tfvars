@@ -60,3 +60,16 @@ grafana = {
 }
 
 github_repo = "adambhwong/my-gcp-project"
+
+gke_clusters = [{
+  name                     = "testlab"
+  master_ipv4_cidr_block   = "10.10.255.0/28"
+  pods_ipv4_cidr_block     = "10.20.0.0/16"
+  services_ipv4_cidr_block = "10.21.0.0/20"
+  master_authorized_cidr_blocks = [
+    {
+      cidr_block   = "192.168.15.0/24"
+      display_name = "home-uk"
+    }
+  ]
+}]
