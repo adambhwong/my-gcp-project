@@ -346,7 +346,7 @@ Potential enhancements:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | ~> 6.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | 6.50.0 |
 
 ## Modules
 
@@ -355,6 +355,7 @@ Potential enhancements:
 | <a name="module_artifact_registry"></a> [artifact\_registry](#module\_artifact\_registry) | ./modules/artifact_registry | n/a |
 | <a name="module_dns"></a> [dns](#module\_dns) | ./modules/dns | n/a |
 | <a name="module_github_wif"></a> [github\_wif](#module\_github\_wif) | ./modules/github-wif | n/a |
+| <a name="module_gke_cluster"></a> [gke\_cluster](#module\_gke\_cluster) | ./modules/gke-minimal | n/a |
 | <a name="module_grafana"></a> [grafana](#module\_grafana) | ./modules/grafana | n/a |
 | <a name="module_network"></a> [network](#module\_network) | ./modules/network | n/a |
 | <a name="module_prometheus_collector"></a> [prometheus\_collector](#module\_prometheus\_collector) | ./modules/prometheus-collector | n/a |
@@ -373,6 +374,7 @@ Potential enhancements:
 |------|-------------|------|---------|:--------:|
 | <a name="input_enable_services"></a> [enable\_services](#input\_enable\_services) | List services to enable | `list(string)` | <pre>[<br/>  "iap",<br/>  "networkmanagement",<br/>  "logging",<br/>  "monitoring",<br/>  "secretmanager",<br/>  "container",<br/>  "dns",<br/>  "artifactregistry",<br/>  "serviceusage"<br/>]</pre> | no |
 | <a name="input_github_repo"></a> [github\_repo](#input\_github\_repo) | Github repository (your-github-org/your-repo-name) | `string` | `"adambhwong/my-gcp-project"` | no |
+| <a name="input_gke_clusters"></a> [gke\_clusters](#input\_gke\_clusters) | GKE clusters | <pre>list(object({<br/>    name                     = string<br/>    master_ipv4_cidr_block   = string<br/>    pods_ipv4_cidr_block     = string<br/>    services_ipv4_cidr_block = string<br/>    zone                     = optional(string, "")<br/>    network_name             = optional(string, "")<br/>    subnet_id                = optional(string, "")<br/>    node_machine_type        = optional(string, "e2-medium")<br/>    node_count               = optional(number, 1)<br/>    use_spot_nodes           = optional(bool, true)<br/>    master_authorized_cidr_blocks = list(object({<br/>      cidr_block   = string<br/>      display_name = string<br/>    }))<br/>  }))</pre> | `[]` | no |
 | <a name="input_grafana"></a> [grafana](#input\_grafana) | Grafana configurations | <pre>object({<br/>    host = string<br/>  })</pre> | <pre>{<br/>  "host": "monitoring"<br/>}</pre> | no |
 | <a name="input_prometheus_scrape_targets"></a> [prometheus\_scrape\_targets](#input\_prometheus\_scrape\_targets) | Map of prometheus scape targets | <pre>map(object({<br/>    target   = string<br/>    instance = string<br/>    location = string<br/>  }))</pre> | `{}` | no |
 | <a name="input_region"></a> [region](#input\_region) | GCP region for VPC resources | `string` | `"europe-west2"` | no |
